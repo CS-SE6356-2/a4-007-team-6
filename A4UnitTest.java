@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-class main {
+class A4UnitTest {
 
 	ShoppingCart cart = new ShoppingCart();
 	Product p1 = new Product("Product 1", 4);
@@ -58,4 +58,36 @@ class main {
 		assertFalse(hasIncremented != true);
 	}
 
+	@Test
+	void productDecrementTest() throws ProductNotFoundException
+	{
+		ShoppingCart cart = new ShoppingCart();
+		cart.addItem(new Product("Product1", 2.00));
+		Product testProduct = new Product("Product2", 4.00);
+		cart.addItem(testProduct);
+		int startNum = cart.getItemCount();
+		cart.removeItem(testProduct);
+		int numAfterRemoving = cart.getItemCount();
+		boolean hasDecremented = false;
+		if(startNum > numAfterRemoving)
+		{
+			hasDecremented = true;
+		}
+		assertFalse(hasDecremented != true);
+	}
+	
+	@Test
+	void productNotFound()
+	{
+		ShoppingCart cart = new ShoppingCart();
+		cart.addItem(new Product("Product1", 2.00));
+		cart.addItem(new Product("Product2", 4.00));
+		boolean exThrown = false;
+		try {
+			cart.removeItem(new Product("Product8", 4.00));
+		} catch (ProductNotFoundException e) {
+			exThrown = true;	//fail("Nonexistant product removed from cart - ProductNotFoundException");
+		}
+		assertTrue(exThrown);
+	}
 }
