@@ -35,5 +35,3 @@ public class ShoppingCart {
 		items.clear();
 	}
 }
-
-//test change
